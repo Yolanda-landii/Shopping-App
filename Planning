@@ -1,0 +1,134 @@
+Initialize React Project:
+
+- Set up the project structure with components, pages, and Redux store.
+- Install necessary dependencies: react-router-dom, redux, react-redux, axios, json-server, bcryptjs for password hashing.
+
+Set Up JSON Server:
+
+- Create a db.json file to store user and shopping list data.
+- Configure json-server to run alongside the React app.
+
+Authentication and User Management:
+
+- Registration
+- - UI Components
+
+- - - Form with fields for name, surname, email, username, password, and profile picture input.
+- - - Submit button.
+- - - Link to login page.
+
+- Process:
+
+- - User fills out the registration form.
+- - When the user submits the form:
+- - - HandleProfilePictureChange:
+- - - - Set the profile picture to the selected file.
+
+- - HandleRegister:
+- - - Prevent the default form submission.
+
+- - - Hash the password.
+
+- - Create a user object with the hashed password and profile picture.
+- - - Send the user object to the API.
+
+- - Show an alert indicating successful registration.
+- - - If an error occurs, log the error and show an alert indicating failure.
+
+Login
+
+- UI Components:
+
+- - Form with fields for email and password.
+- - Submit button.
+- - Link to registration page.
+
+- Process:
+
+- - User enters email and password.
+- - When the user submits the form:
+
+- - - HandleLogin:
+- - - - Prevent the default form submission.
+- - - - Fetch all users from the API.
+- - - - Find the user by email.
+- - - - If the user exists and the password matches:
+- - - - Save user details to localStorage.
+- - - - Navigate to the home page.
+- - - - If credentials are invalid, show an alert.
+- - - - If an error occurs, log the error and show an alert.
+
+Profile Management
+
+- UI Components:
+
+- - Display user profile information and profile picture.
+- - Form to update profile information.
+- - Submit button.
+
+- Process:
+
+- - User views their profile.
+- - User updates profile information:
+
+- - - HandleProfilePictureChange:
+- - - - Set the profile picture to the selected file.
+
+- - - HandleSaveProfile:
+- - - - Prevent the default form submission.
+- - - - Create a form data object with user details and profile picture.
+- - - - Update the user profile using the API.
+- - - - Show a success alert.
+- - - - If an error occurs, log the error and show an error alert.
+
+Shopping List Management:
+
+- CRUD Operations:
+- - Create:
+- - - Implement a form to add a new shopping list (name, quantity, notes, category, image).
+- - Read:
+- - - Display all shopping lists added by the user.
+- - Update:
+- - - Implement functionality to edit existing shopping lists.
+- - Delete:
+- - - Allow users to delete shopping lists and individual items.
+
+- Search and Filter:
+- - Implement a search bar to search items by name, updating the URL with the search keyword.
+- - Implement sorting functionality based on name, category, and date added, updating the URL.
+
+State Management with Redux:
+
+- Setup Redux Store:
+- - Create slices for user authentication and shopping lists.
+- - Manage application state using Redux for consistent data handling across components.
+
+- Integrate Redux with Components:
+- - Use useSelector to access state and useDispatch to handle actions.
+
+- Persist Data:
+- - Ensure data persistence using localStorage for user session management.
+
+UI/UX Design:
+
+- Responsive Design:
+- - Ensure the app is responsive across different screen sizes.
+- - Implement a consistent layout and theme across all pages.
+
+- Navigation:
+- - Set up navigation between Login, Registration, Home, and Profile pages using react-router-dom.
+- - Use protected routes to restrict access based on authentication state.
+
+- Interactive Elements:
+- - Provide visual feedback on hover for clickable elements.
+- - Use modals, alerts, or notifications for user actions like adding, editing, or deleting items.
+
+- Performance and Security:
+
+- - Optimize App Performance:
+- - Optimize Redux actions and reducers to ensure smooth performance.
+- - Use lazy loading for components to improve load times.
+
+- Implement Security Measures:
+- - Encrypt sensitive data like user credentials.
+- - Use protected routes to safeguard user data and prevent unauthorized access.

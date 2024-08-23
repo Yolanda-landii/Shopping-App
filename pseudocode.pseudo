@@ -1,0 +1,105 @@
+Function handleRegister:
+    Prevent default form submission
+    Try:
+        Hash password
+        Create user object with hashed password and profile picture
+        Send user object to API
+        Show alert "User registered successfully"
+    Catch error:
+        Log error
+        Show alert "An error occurred during registration"
+End Function
+
+Render:
+    Form with name, surname, email, username, password fields, and profile picture input
+    Submit button
+    Link to login page
+End Render
+Function handleLogin:
+    Prevent default form submission
+    Try:
+        Fetch all users from API
+        Find user by email
+        If user exists and password matches:
+            Save user to localStorage
+            Navigate to home page
+        Else:
+            Show alert "Invalid credentials"
+    Catch error:
+        Log error
+        Show alert "An error occurred during login"
+End Function
+Check if user is authenticated:
+    If authenticated:
+        Render Navbar, protected content, and Footer
+    Else:
+        Redirect to login page
+End Check
+
+FUNCTION profilePage()
+    DISPLAY user profile data
+    ON update profile:
+        ALLOW users to edit and update their details
+    END ON
+    ON update credentials:
+        ALLOW users to update login credentials
+    END ON
+END FUNCTION
+
+FUNCTION shoppingListManagement()
+
+    FUNCTION createShoppingList()
+        DISPLAY form with fields: name, quantity, notes, category, image
+        ON form submission:
+            SEND shopping list data to json-server
+        END ON
+    END FUNCTION
+
+    FUNCTION readShoppingLists()
+        FETCH and DISPLAY all shopping lists added by the user
+    END FUNCTION
+
+    FUNCTION updateShoppingList()
+        DISPLAY existing shopping list data in form
+        ON form submission:
+            UPDATE shopping list data on json-server
+        END ON
+    END FUNCTION
+
+    FUNCTION deleteShoppingList()
+        ON delete action:
+            DELETE shopping list or item from json-server
+        END ON
+    END FUNCTION
+
+END FUNCTION
+
+FUNCTION searchAndFilter()
+    ON search input:
+        FILTER and DISPLAY shopping lists based on search keyword
+        UPDATE URL with search keyword
+    END ON
+    ON sort action:
+        SORT shopping lists by name, category, or date added
+        UPDATE URL with sorting criteria
+    END ON
+END FUNCTION
+
+FUNCTION setupReduxStore()
+    CREATE slices for user authentication and shopping lists
+    INITIALIZE Redux store with created slices
+END FUNCTION
+
+FUNCTION integrateReduxWithComponents()
+    USE useSelector to access state within components
+    USE useDispatch to dispatch actions from components
+END FUNCTION
+
+FUNCTION persistData()
+    ON user login:
+        STORE user session data in localStorage
+    END ON
+    ON user logout:
+        REMOVE user session data from localStorage
+    END ON
+END FUNCTION
