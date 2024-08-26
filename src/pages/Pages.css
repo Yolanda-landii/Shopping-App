@@ -40,3 +40,79 @@
     max-width: 100%;
   }
   
+  /* Shared styles for the landing page */
+.landing-page-container {
+    font-family: 'Arial, sans-serif';
+    color: #141413;
+    /* padding: auto;  */
+    background: linear-gradient(to right, #4c83ff, #645bff);
+  }
+  
+  .navbar {
+    padding: 20px;
+    background-color: #f09d51;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-container .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navbar-container nav {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-link {
+    color: #1a1919;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .nav-link:hover {
+    color: #ccc;
+  }
+  
+  .hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 100px;
+  }
+  
+  .hero-content {
+    max-width: 600px;
+  }
+  
+  .hero-title {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  .cta-button {
+    padding: 15px 30px;
+    background-color: #f09d51;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+  }
+  
+  .cta-button:hover {
+    background-color: #009a60;
+  }
+  
+  .hero-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 20px;
+  }
+  

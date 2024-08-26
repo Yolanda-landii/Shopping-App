@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
+import './Auth.css';
 
 export default function Register() {
   const [formData, setFormData] = useState({
