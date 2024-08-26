@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "id": "9f77",
+      "name": "Yolanda",
+      "surname": "Mabotja",
+      "email": "landiimabotja2000@gmail.com",
+      "username": "Chad@gmail.com",
+      "password": "$2a$10$EA79oL2VwR0uRW9rhm6ms.bzgX6933eAkhlyJt/s9/u9.SLUFi3GO",
+      "profilePicture": null
+    }
+  ],
+  "shoppingLists": [
+    {
+      "id": "6a70",
+      "name": "food",
+      "quantity": "ssdd",
+      "notes": "eff ddg ",
+      "category": "Food",
+      "image": "blob:http://localhost:3001/425cd91c-d127-4e39-8c8d-c6ce82ea8a1c"
+    }
+  ]
+}
