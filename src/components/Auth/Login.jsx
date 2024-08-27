@@ -17,7 +17,7 @@ export default function Login() {
 
       if (user && await bcrypt.compare(password, user.password)) {
         localStorage.setItem('user', JSON.stringify(user));
-        navigate('/banner');
+        navigate('/home');
       } else {
         alert('Invalid email or password');
       }

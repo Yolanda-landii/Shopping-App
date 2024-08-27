@@ -1,56 +1,16 @@
-.banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50px;
-    background-color: #fdf1e5;
-  }
-  
-  .banner-content {
-    max-width: 50%;
-  }
-  
-  .banner h2 {
-    font-size: 24px;
-    color: #999;
-  }
-  
-  .banner h1 {
-    font-size: 48px;
-    color: #000;
-    margin: 10px 0;
-  }
-  
-  .banner p {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .banner .btn {
-    background-color: #f09d51;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .banner-image img {
-    max-width: 100%;
-  }
+
   
   /* Shared styles for the landing page */
 .landing-page-container {
     font-family: 'Arial, sans-serif';
     color: #141413;
     /* padding: auto;  */
-    background: linear-gradient(to right, #4c83ff, #645bff);
+    background: linear-gradient(to right, #aab1c2, #645bff);
   }
   
   .navbar {
     padding: 20px;
-    background-color: #f09d51;
+    background-color: #f0efee;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -112,7 +72,25 @@
   
   .hero-image img {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     border-radius: 20px;
+    padding-bottom: 400px;
   }
-  
+  /* src/styles.css */
+
+.shopping-list-page {
+  padding: 20px;
+}
+
+.shopping-list-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.shopping-list-item img {
+  max-width: 100px;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../components/Shared/Footer'; // Assuming you have a Footer component
+import Footer from '../components/Shared/Footer';
+import './Pages.css';
 import appImage from '../assets/pexels-brandandpalms-768975.jpg'; // Import the image
 
 const LandingPage = () => {
@@ -10,7 +11,7 @@ const LandingPage = () => {
       <header className="navbar">
         <div className="navbar-container">
         <div className="logo">
-          <i className="fa fa-shopping-cart"></i> Online <span>Store</span>
+          <i className="fa fa-shopping-cart"></i> Shopping <span>List</span>
         </div>
           <nav>
             <Link to="/login" className="nav-link">Login</Link>

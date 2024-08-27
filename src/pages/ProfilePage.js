@@ -130,7 +130,7 @@ const ProfilePage = () => {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+12-345 678 910"
+                  placeholder="+27-345 678 910"
                 />
               </div>
               <button type="submit" className="save-button">Save All</button>

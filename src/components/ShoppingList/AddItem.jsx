@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function AddItem ({ loadItems }){
-    
+export default function AddItem({ loadItems }) {
   const [item, setItem] = useState({
     name: '',
     quantity: '',
@@ -34,7 +33,7 @@ export default function AddItem ({ loadItems }){
 
     try {
       await axios.post('http://localhost:5000/shoppingLists', newItem);
-      loadItems();
+      loadItems();  // Ensure this reloads the updated list
     } catch (error) {
       console.error(error);
       alert('Failed to add item');
@@ -51,6 +50,4 @@ export default function AddItem ({ loadItems }){
       <button type="submit">Add Item</button>
     </form>
   );
-};
-
-
+}
