@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { setLists, addList, updateList, deleteList, updateItem, deleteItem } from '../redux/reduxSlices/shoppingListSlice';
 import { 
   fetchShoppingLists, 
   addShoppingList, 
   updateShoppingList, 
   deleteShoppingList, 
-
   updateItemInList, 
   deleteItemFromList 
 } from '../utils/localStorage';
@@ -22,14 +22,30 @@ const HomePage = () => {
   const [editListName, setEditListName] = useState('');
   const [editCategory, setEditCategory] = useState('');
   const [editNotes, setEditNotes] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const lists = useSelector(state => state.shoppingList.lists);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const sort = searchParams.get('sort');
+  const query = searchParams.get('search');
 
   useEffect(() => {
     const loadedLists = fetchShoppingLists();
     dispatch(setLists(loadedLists));
   }, [dispatch]);
+
+  useEffect(() => {
+  
+    if (sort) {
+
+    }
+  }, [sort]);
+
+  useEffect(() => {
+    setSearchQuery(query || '');
+  }, [query]);
 
   const handleAddList = (e) => {
     e.preventDefault();
@@ -67,7 +83,6 @@ const HomePage = () => {
     dispatch(deleteList(listId));
   };
 
-
   const handleEditItem = (listId, itemId, updatedItem) => {
     updateItemInList(listId, itemId, updatedItem);
     dispatch(updateItem({ listId, itemId, updatedItem }));
@@ -78,16 +93,43 @@ const HomePage = () => {
     dispatch(deleteItem({ listId, itemId }));
   };
 
-  // Define loadItems to reload the list of items
   const loadItems = () => {
     const updatedLists = fetchShoppingLists();
     dispatch(setLists(updatedLists));
   };
 
+  const handleSortChange = (sortBy) => {
+    navigate(`?sort=${sortBy}&search=${searchQuery}`);
+  };
+
+  const handleSearchChange = (e) => {
+    const searchValue = e.target.value;
+    setSearchQuery(searchValue);
+    navigate(`?sort=${sort}&search=${searchValue}`);
+  };
+
+  // Filter lists based on search query
+  const filteredLists = lists.filter(list => 
+    list.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    list.items.some(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
   return (
     <div className="home-page">
       <h1>Shopping Lists</h1>
       <form onSubmit={handleAddList}>
+      <select onChange={(e) => handleSortChange(e.target.value)} defaultValue="">
+        <option value="">Select sorting</option>
+        <option value="name">Name</option>
+        <option value="category">Category</option>
+        <option value="date">Date added</option>
+      </select>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={handleSearchChange}
+        placeholder="Search items"
+      />
         <input
           type="text"
           value={newListName}
@@ -109,7 +151,7 @@ const HomePage = () => {
         <button type="submit">Add List</button>
       </form>
       <div className="lists-container">
-        {lists.map(list => (
+        {filteredLists.map(list => (
           <div key={list.id} className="shopping-list">
             {editingList === list.id ? (
               <div>

@@ -1,4 +1,4 @@
-// localStorage.js
+
 
 const getData = (key) => {
   const data = localStorage.getItem(key);
@@ -9,7 +9,6 @@ const setData = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data));
 };
 
-// User operations
 export const addUser = (user) => {
   const users = getData('users');
   users.push(user);
@@ -29,7 +28,6 @@ export const updateUser = (id, updatedUser) => {
   }
 };
 
-// Shopping list operations
 export const fetchShoppingLists = () => {
   return getData('shoppingLists');
 };

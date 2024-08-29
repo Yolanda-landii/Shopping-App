@@ -36,18 +36,18 @@ export default function AddItem({ loadItems, listId }) {
     const newItem = {
       id: Date.now(),
       ...item,
-      imageUrl: item.image ? URL.createObjectURL(item.image) : null // Handle image preview URL
+      imageUrl: item.image ? URL.createObjectURL(item.image) : null 
     };
 
     addItemToList(listId, newItem);
-    loadItems();  // Reload the updated list after adding the item
+    loadItems();  
     setItem({
       name: '',
       quantity: '',
       notes: '',
       category: '',
       image: null,
-    });  // Clear the form
+    }); 
   };
 
   return (
@@ -75,14 +75,14 @@ export default function AddItem({ loadItems, listId }) {
         onChange={handleChange}
         placeholder="Notes"
       />
-      {/* <input
+       <input
         type="text"
         name="category"
         value={item.category}
         onChange={handleChange}
         placeholder="Category"
         required
-      /> */}
+      /> 
       <input
         type="file"
         name="image"
