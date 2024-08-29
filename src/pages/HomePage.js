@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLists, addList, updateList, deleteList, addItem, updateItem, deleteItem } from '../redux/reduxSlices/shoppingListSlice';
+import { setLists, addList, updateList, deleteList, updateItem, deleteItem } from '../redux/reduxSlices/shoppingListSlice';
 import { 
   fetchShoppingLists, 
   addShoppingList, 
   updateShoppingList, 
   deleteShoppingList, 
-  addItemToList, 
+
   updateItemInList, 
   deleteItemFromList 
-} from '../utils/localStorage'; // Import your localStorage functions
+} from '../utils/localStorage';
 import AddItem from '../components/ShoppingList/AddItem';
 import EditItemForm from '../components/ShoppingList/EditItem';
+import './Pages.css';  
 
 const HomePage = () => {
   const [newListName, setNewListName] = useState('');
@@ -66,10 +67,6 @@ const HomePage = () => {
     dispatch(deleteList(listId));
   };
 
-  const handleAddItem = (listId, item) => {
-    addItemToList(listId, item);
-    dispatch(addItem({ listId, item }));
-  };
 
   const handleEditItem = (listId, itemId, updatedItem) => {
     updateItemInList(listId, itemId, updatedItem);
@@ -79,6 +76,12 @@ const HomePage = () => {
   const handleDeleteItem = (listId, itemId) => {
     deleteItemFromList(listId, itemId);
     dispatch(deleteItem({ listId, itemId }));
+  };
+
+  // Define loadItems to reload the list of items
+  const loadItems = () => {
+    const updatedLists = fetchShoppingLists();
+    dispatch(setLists(updatedLists));
   };
 
   return (
@@ -137,17 +140,21 @@ const HomePage = () => {
                 <p>Notes: {list.notes}</p>
                 <button onClick={() => { setEditingList(list.id); setEditListName(list.name); setEditCategory(list.category); setEditNotes(list.notes); }}>Edit List</button>
                 <button onClick={() => handleDeleteList(list.id)}>Delete List</button>
-                <ul>
+                <div className="items-container">
                   {list.items.map(item => (
-                    <li key={item.id}>
-                      {item.name} - {item.quantity} - {item.notes}
-                      {item.imageUrl && <img src={item.imageUrl} alt={item.name} style={{ width: '50px', height: '50px' }} />}
-                      <button onClick={() => handleDeleteItem(list.id, item.id)}>Delete</button>
-                      <EditItemForm listId={list.id} item={item} onEditItem={handleEditItem} />
-                    </li>
+                    <div key={item.id} className="item-card">
+                      <h3>{item.name}</h3>
+                      <p>Quantity: {item.quantity}</p>
+                      <p>Notes: {item.notes}</p>
+                      {item.imageUrl && <img src={item.imageUrl} alt={item.name} />}
+                      <div className="buttons">
+                        <EditItemForm listId={list.id} item={item} onEditItem={handleEditItem} />
+                        <button onClick={() => handleDeleteItem(list.id, item.id)}>Delete</button>
+                      </div>
+                    </div>
                   ))}
-                </ul>
-                <AddItem listId={list.id} onAddItem={handleAddItem} />
+                </div>
+                <AddItem listId={list.id} loadItems={loadItems} />
               </div>
             )}
           </div>

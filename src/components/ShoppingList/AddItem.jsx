@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { addItemToList } from '../../utils/localStorage';
+
 
 export default function AddItem({ loadItems, listId }) {
   const [item, setItem] = useState({
@@ -24,7 +25,7 @@ export default function AddItem({ loadItems, listId }) {
     });
   };
 
-  const handleAddItem = async (e) => {
+  const handleAddItem = (e) => {
     e.preventDefault();
 
     if (!item.name || !item.quantity || !item.category) {
@@ -32,27 +33,21 @@ export default function AddItem({ loadItems, listId }) {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('name', item.name);
-    formData.append('quantity', item.quantity);
-    formData.append('notes', item.notes);
-    formData.append('category', item.category);
-    if (item.image) {
-      formData.append('image', item.image);
-    }
+    const newItem = {
+      id: Date.now(),
+      ...item,
+      imageUrl: item.image ? URL.createObjectURL(item.image) : null // Handle image preview URL
+    };
 
-    try {
-      const response = await axios.post(`http://localhost:5000/shoppingLists/${listId}/items`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('Item added successfully:', response.data);
-      loadItems();  // Reload the updated list after adding the item
-    } catch (error) {
-      console.error('Failed to add item:', error.response ? error.response.data : error.message);
-      alert('Failed to add item');
-    }
+    addItemToList(listId, newItem);
+    loadItems();  // Reload the updated list after adding the item
+    setItem({
+      name: '',
+      quantity: '',
+      notes: '',
+      category: '',
+      image: null,
+    });  // Clear the form
   };
 
   return (
@@ -80,14 +75,14 @@ export default function AddItem({ loadItems, listId }) {
         onChange={handleChange}
         placeholder="Notes"
       />
-      <input
+      {/* <input
         type="text"
         name="category"
         value={item.category}
         onChange={handleChange}
         placeholder="Category"
         required
-      />
+      /> */}
       <input
         type="file"
         name="image"
