@@ -1,68 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
-export default function EditItem ({ match, history }) {
-  const [item, setItem] = useState({
-    name: '',
-    quantity: '',
-    notes: '',
-    category: '',
-    image: null,
-  });
 
-  useEffect(() => {
-    const fetchItem = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/shoppingLists/${match.params.id}`);
-        setItem(response.data);
-      } catch (error) {
-        console.error(error);
-        alert('Failed to fetch item');
-      }
-    };
+const EditItemForm = ({ listId, item, onEditItem }) => {
+  const [itemName, setItemName] = useState(item.name);
+  const [quantity, setQuantity] = useState(item.quantity);
+  const [notes, setNotes] = useState(item.notes);
+  const [imageUrl, setImageUrl] = useState(item.imageUrl);
 
-    fetchItem();
-  }, [match.params.id]);
-
-  const handleChange = (e) => {
-    setItem({
-      ...item,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleImageChange = (e) => {
-    setItem({
-      ...item,
-      image: e.target.files[0]
-    });
-  };
-
-  const handleEditItem = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const updatedItem = {
-      ...item,
-      image: item.image ? URL.createObjectURL(item.image) : item.image,
+      name: itemName,
+      quantity,
+      notes,
+      imageUrl,
     };
-
-    try {
-      await axios.put(`http://localhost:5000/shoppingLists/${match.params.id}`, updatedItem);
-      history.push('/');
-    } catch (error) {
-      console.error(error);
-      alert('Failed to update item');
-    }
+    onEditItem(listId, item.id, updatedItem);
   };
 
   return (
-    <form onSubmit={handleEditItem}>
-      <input type="text" name="name" value={item.name} onChange={handleChange} placeholder="Item Name" required />
-      <input type="text" name="quantity" value={item.quantity} onChange={handleChange} placeholder="Quantity" required />
-      <input type="text" name="notes" value={item.notes} onChange={handleChange} placeholder="Notes" />
-      <input type="text" name="category" value={item.category} onChange={handleChange} placeholder="Category" required />
-      <input type="file" name="image" onChange={handleImageChange} />
-      <button type="submit">Update Item</button>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={itemName}
+        onChange={(e) => setItemName(e.target.value)}
+        placeholder="Item Name"
+        required
+      />
+      <input
+        type="text"
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+        placeholder="Quantity"
+        required
+      />
+      <textarea
+        value={notes}
+        onChange={(e) => setNotes(e.target.value)}
+        placeholder="Optional Notes"
+      />
+      <input
+        type="text"
+        value={imageUrl}
+        onChange={(e) => setImageUrl(e.target.value)}
+        placeholder="Image URL"
+      />
+      <button type="submit">Save Changes</button>
     </form>
   );
 };
 
+export default EditItemForm;

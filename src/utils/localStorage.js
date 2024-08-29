@@ -1,21 +1,86 @@
-import axios from 'axios';
+// localStorage.js
 
-const API_URL = 'http://localhost:5000';
+const getData = (key) => {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : [];
+};
 
-export const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+const setData = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
 
 // User operations
-export const addUser = (user) => api.post('/users', user);
-export const fetchUsers = () => api.get('/users');
-export const updateUser = (id, user) => api.patch(`/users/${id}`, user);
+export const addUser = (user) => {
+  const users = getData('users');
+  users.push(user);
+  setData('users', users);
+};
+
+export const fetchUsers = () => {
+  return getData('users');
+};
+
+export const updateUser = (id, updatedUser) => {
+  const users = getData('users');
+  const index = users.findIndex(user => user.id === id);
+  if (index !== -1) {
+    users[index] = { ...users[index], ...updatedUser };
+    setData('users', users);
+  }
+};
 
 // Shopping list operations
-export const fetchShoppingLists = () => api.get('/shoppingLists');
-export const addShoppingList = (shoppingList) => api.post('/shoppingLists', shoppingList);
-export const updateShoppingList = (id, shoppingList) => api.patch(`/shoppingLists/${id}`, shoppingList);
-export const deleteShoppingList = (id) => api.delete(`/shoppingLists/${id}`);
+export const fetchShoppingLists = () => {
+  return getData('shoppingLists');
+};
+
+export const addShoppingList = (shoppingList) => {
+  const lists = getData('shoppingLists');
+  lists.push(shoppingList);
+  setData('shoppingLists', lists);
+};
+
+export const updateShoppingList = (id, updatedList) => {
+  const lists = getData('shoppingLists');
+  const index = lists.findIndex(list => list.id === id);
+  if (index !== -1) {
+    lists[index] = { ...lists[index], ...updatedList };
+    setData('shoppingLists', lists);
+  }
+};
+
+export const deleteShoppingList = (id) => {
+  const lists = getData('shoppingLists');
+  const updatedLists = lists.filter(list => list.id !== id);
+  setData('shoppingLists', updatedLists);
+};
+
+export const addItemToList = (listId, item) => {
+  const lists = getData('shoppingLists');
+  const list = lists.find(list => list.id === listId);
+  if (list) {
+    list.items.push(item);
+    setData('shoppingLists', lists);
+  }
+};
+
+export const updateItemInList = (listId, itemId, updatedItem) => {
+  const lists = getData('shoppingLists');
+  const list = lists.find(list => list.id === listId);
+  if (list) {
+    const itemIndex = list.items.findIndex(item => item.id === itemId);
+    if (itemIndex !== -1) {
+      list.items[itemIndex] = { ...list.items[itemIndex], ...updatedItem };
+      setData('shoppingLists', lists);
+    }
+  }
+};
+
+export const deleteItemFromList = (listId, itemId) => {
+  const lists = getData('shoppingLists');
+  const list = lists.find(list => list.id === listId);
+  if (list) {
+    list.items = list.items.filter(item => item.id !== itemId);
+    setData('shoppingLists', lists);
+  }
+};

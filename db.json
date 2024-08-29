@@ -12,28 +12,11 @@
   ],
   "shoppingLists": [
     {
-      "id": "6a70",
-      "name": "food",
-      "quantity": "ssdd",
-      "notes": "eff ddg ",
+      "id": 1724919264114,
+      "name": "Grocery",
       "category": "Food",
-      "image": "blob:http://localhost:3001/425cd91c-d127-4e39-8c8d-c6ce82ea8a1c"
-    },
-    {
-      "id": "2c0a",
-      "name": "shoes",
-      "quantity": "ssdd",
-      "notes": "eff ddg ",
-      "category": "Fashion",
-      "image": "blob:http://localhost:3002/15fd21c4-cc3b-4641-b5ef-0ec18e02d112"
-    },
-    {
-      "id": "731f",
-      "name": "shoes",
-      "quantity": "ssdd",
-      "notes": "eff ddg ",
-      "category": "Fashion",
-      "image": "blob:http://localhost:3002/60548645-d431-41a4-beb4-b4dff95e187f"
+      "notes": "statch only",
+      "items": []
     }
   ]
 }
