@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import { useNavigate } from 'react-router-dom';
-import groceryImage from '../../assets/grocery-shopping-apps.png';
+import groceryImage from '../../assets/list.jpg';
 import './Auth.css';
 
 export default function Login() {
