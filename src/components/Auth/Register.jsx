@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
+import groceryImage from '../../assets/grocery-shopping-apps.png';
+
 import './Auth.css';
 
 export default function Register() {
@@ -10,7 +12,6 @@ export default function Register() {
     email: '',
     username: '',
     password: '',
-    profilePicture: null
   });
 
   const handleChange = (e) => {
@@ -20,20 +21,10 @@ export default function Register() {
     });
   };
 
-//   const handleProfilePictureChange = (e) => {
-//     setFormData({
-//       ...formData,
-//       profilePicture: e.target.files[0]
-//     });
-//   };
-
   const handleRegister = async (e) => {
     e.preventDefault();
     const hashedPassword = await bcrypt.hash(formData.password, 10);
-    const user = {
-      ...formData,
-      password: hashedPassword,
-    };
+    const user = { ...formData, password: hashedPassword };
 
     try {
       await axios.post('http://localhost:5000/users', user);
@@ -45,17 +36,25 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={handleRegister}>
-      <input type="text" name="name" onChange={handleChange} placeholder="Name" required />
-      <input type="text" name="surname" onChange={handleChange} placeholder="Surname" required />
-      <input type="email" name="email" onChange={handleChange} placeholder="Email" required />
-      <input type="text" name="username" onChange={handleChange} placeholder="Username" required />
-      <input type="password" name="password" onChange={handleChange} placeholder="Password" required />
-      {/* <input type="file" name="profilePicture" onChange={handleProfilePictureChange} /> */}
-      <button type="submit">Register</button>
-      <p>Already have an account? <a href="/login">Login here</a></p>
-    </form>
+    <div className="register-container">
+      {/* Left Side - Image */}
+      <div className="image-container">
+      <img src={groceryImage} alt="Signup" />
+      </div>
+
+      {/* Right Side - Registration Form */}
+      <div className="form-container">
+        <h2>Register</h2>
+        <form onSubmit={handleRegister}>
+          <input type="text" name="name" onChange={handleChange} placeholder="Name" required />
+          <input type="text" name="surname" onChange={handleChange} placeholder="Surname" required />
+          <input type="email" name="email" onChange={handleChange} placeholder="Email" required />
+          <input type="text" name="username" onChange={handleChange} placeholder="Username" required />
+          <input type="password" name="password" onChange={handleChange} placeholder="Password" required />
+          <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="/login">Login here</a></p>
+      </div>
+    </div>
   );
-};
-
-
+}

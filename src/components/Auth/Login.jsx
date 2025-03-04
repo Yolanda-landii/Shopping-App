@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import { useNavigate } from 'react-router-dom';
-import styles from './Auth.css';
+import groceryImage from '../../assets/grocery-shopping-apps.png';
+import './Auth.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -28,8 +29,12 @@ export default function Login() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.formWrapper}>
+    <div className="loginContainer">
+      <div className="loginImageContainer">
+        <img src={groceryImage} alt="Background" />
+      </div>
+      <div className="loginFormContainer">
+        <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <input 
             type="email" 
