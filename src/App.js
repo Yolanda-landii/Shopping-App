@@ -10,10 +10,17 @@ import ProtectedRoute from './components/Shared/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import NotFound from './pages/NotFound';
+import Layout from './components/Shared/Layout';
 
 const useAuth = () => {
   // Replace with your authentication logic
   return !!localStorage.getItem('authToken');
+};
+
+const ProtectedLayout = ({ children }) => {
+  return (
+    <ProtectedRoute element={<Layout>{children}</Layout>} />
+  );
 };
 
 function App() {
@@ -27,9 +34,9 @@ function App() {
           <Route path="/login" element={isAuthenticated ? <Navigate to="/home" /> : <Login />} />
           <Route path="/register" element={isAuthenticated ? <Navigate to="/home" /> : <Register />} />
           {/* <Route path="/banner" element={<ProtectedRoute element={<HomePage />} />} /> */}
-          <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
-          <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
-          <Route path="/shopping-list" element={<ProtectedRoute element={<ShoppingListPage />} />} />
+          <Route path="/home" element={<ProtectedLayout><HomePage /></ProtectedLayout>} />
+          <Route path="/profile" element={<ProtectedLayout><ProfilePage /></ProtectedLayout>} />
+          <Route path="/shopping-list" element={<ProtectedLayout><ShoppingListPage /></ProtectedLayout>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

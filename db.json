@@ -8,9 +8,23 @@
       "username": "Chad@gmail.com",
       "password": "$2a$10$EA79oL2VwR0uRW9rhm6ms.bzgX6933eAkhlyJt/s9/u9.SLUFi3GO",
       "profilePicture": null
+    },
+    {
+      "id": "cda8",
+      "name": "Yolanda",
+      "surname": "Mabotja",
+      "email": "landiimabotja2000@gmail.com",
+      "username": "yolmabot021@student.wethinkcode.co.za",
+      "password": "$2a$10$7iIuvhGZD1j01AeUbpZc7uJQKvqXXsLwC9TdrPEV7V4QsRjoFnrXi"
+    },
+    {
+      "id": "35ac",
+      "name": "Yolanda",
+      "surname": "Mabotja",
+      "email": "yolmabot021@student.wethinkcode.co.za",
+      "username": "yolmabot",
+      "password": "$2a$10$SEM0iSsjVvd3OoCa4tgtXuXKMzDpYUf91.YLbU2oTsunGttE4Rzyy"
     }
   ],
-  "shoppingLists": [
-  
-  ]
+  "shoppingLists": []
 }
