@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.register-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, #8360c3, #2ebf91);
+  overflow: hidden; /* Prevents scrolling */
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.form-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 40px;
+  border-radius: 0 10px 10px 0; /* Optional: rounded right corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.loginContainer {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, #8360c3, #2ebf91);
+  overflow: hidden; /* Prevents scrolling */
+}
+
+.loginImageContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginImageContainer img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.loginFormContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 40px;
+  border-radius: 0 10px 10px 0; /* Optional: rounded right corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #ff914d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+p {
+  margin-top: 15px;
+}
