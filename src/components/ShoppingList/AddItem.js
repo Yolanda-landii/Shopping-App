@@ -9,10 +9,28 @@ const AddItem = ({ listId }) => {
   const [itemName, setItemName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [notes, setNotes] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState('');
 
   const dispatch = useDispatch();
   const lists = useSelector(state => state.shoppingList.lists);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5000000) { // 5MB limit
+        alert('Image size should be less than 5MB');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // Store base64 string
+        setPreviewUrl(URL.createObjectURL(file)); // Create preview URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +44,7 @@ const AddItem = ({ listId }) => {
       name: itemName.trim(),
       quantity: quantity.trim(),
       notes: notes.trim(),
-      imageUrl: imageUrl.trim(),
+      image: image, // Store base64 string
     };
 
     const updatedList = {
@@ -41,7 +59,8 @@ const AddItem = ({ listId }) => {
     setItemName('');
     setQuantity('');
     setNotes('');
-    setImageUrl('');
+    setImage(null);
+    setPreviewUrl('');
     setShowForm(false);
   };
 
@@ -77,20 +96,44 @@ const AddItem = ({ listId }) => {
             placeholder="Notes (optional)"
             className="form-textarea"
           />
-          <input
-            type="url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            placeholder="Image URL (optional)"
-            className="form-input"
-          />
+          <div className="image-upload-container">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="file-input"
+              id={`file-input-${listId}`}
+            />
+            <label htmlFor={`file-input-${listId}`} className="file-input-label">
+              Choose Image
+            </label>
+            {previewUrl && (
+              <div className="image-preview">
+                <img src={previewUrl} alt="Preview" />
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setImage(null);
+                    setPreviewUrl('');
+                  }}
+                  className="remove-image-btn"
+                >
+                  Remove Image
+                </button>
+              </div>
+            )}
+          </div>
           <div className="form-buttons">
             <button type="submit" className="submit-btn">
               Add Item
             </button>
             <button 
               type="button" 
-              onClick={() => setShowForm(false)}
+              onClick={() => {
+                setShowForm(false);
+                setImage(null);
+                setPreviewUrl('');
+              }}
               className="cancel-btn"
             >
               Cancel

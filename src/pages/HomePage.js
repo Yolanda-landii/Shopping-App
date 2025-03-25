@@ -5,6 +5,7 @@ import { setLists, addList, updateList, deleteList } from '../redux/reduxSlices/
 import { fetchShoppingLists, addShoppingList, updateShoppingList, deleteShoppingList } from '../utils/localStorage';
 import AddItem from '../components/ShoppingList/AddItem';
 import EditItemForm from '../components/ShoppingList/EditItem';
+import EditItemModal from '../components/ShoppingList/EditItemModal';
 import './Pages.css';
 
 const HomePage = () => {
@@ -12,6 +13,7 @@ const HomePage = () => {
   const [category, setCategory] = useState('');
   const [notes, setNotes] = useState('');
   const [editingList, setEditingList] = useState(null);
+  const [editingItem, setEditingItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
 
@@ -64,14 +66,31 @@ const HomePage = () => {
     }
   };
 
-  const handleDeleteItem = (listId, itemId) => {
-    const updatedList = lists.find(list => list.id === listId);
-    if (updatedList) {
-      const newList = {
-        ...updatedList,
-        items: updatedList.items.filter(item => item.id !== itemId)
+  const handleEditItem = (listId, itemId, updatedItem) => {
+    const list = lists.find(list => list.id === listId);
+    if (list) {
+      const updatedItems = list.items.map(item => 
+        item.id === itemId ? updatedItem : item
+      );
+      const updatedList = {
+        ...list,
+        items: updatedItems
       };
-      handleEditList(listId, newList);
+      handleEditList(listId, updatedList);
+    }
+    setEditingItem(null);
+  };
+
+  const handleDeleteItem = (listId, itemId) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      const updatedList = lists.find(list => list.id === listId);
+      if (updatedList) {
+        const newList = {
+          ...updatedList,
+          items: updatedList.items.filter(item => item.id !== itemId)
+        };
+        handleEditList(listId, newList);
+      }
     }
   };
 
@@ -208,20 +227,28 @@ const HomePage = () => {
                           <h3>{item.name}</h3>
                           <p>Quantity: {item.quantity}</p>
                           {item.notes && <p>Notes: {item.notes}</p>}
-                          {item.imageUrl && (
+                          {item.image && (
                             <img 
-                              src={item.imageUrl} 
+                              src={item.image}
                               alt={item.name} 
                               className="item-image"
                             />
                           )}
                         </div>
-                        <button 
-                          onClick={() => handleDeleteItem(list.id, item.id)}
-                          className="delete-item-btn"
-                        >
-                          Remove
-                        </button>
+                        <div className="item-actions">
+                          <button 
+                            onClick={() => setEditingItem({ listId: list.id, ...item })}
+                            className="edit-item-btn"
+                          >
+                            Edit
+                          </button>
+                          <button 
+                            onClick={() => handleDeleteItem(list.id, item.id)}
+                            className="delete-item-btn"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -232,6 +259,14 @@ const HomePage = () => {
           ))
         )}
       </div>
+
+      {editingItem && (
+        <EditItemModal
+          item={editingItem}
+          onSave={(updatedItem) => handleEditItem(editingItem.listId, editingItem.id, updatedItem)}
+          onCancel={() => setEditingItem(null)}
+        />
+      )}
     </div>
   );
 };
