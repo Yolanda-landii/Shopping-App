@@ -27,7 +27,7 @@ export default function Register() {
     const user = { ...formData, password: hashedPassword };
 
     try {
-      await axios.post('http://localhost:5000/users', user);
+      await axios.post('https://localhost:5000/users', user);
       alert('Registration successful');
     } catch (error) {
       console.error(error);
