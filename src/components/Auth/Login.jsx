@@ -13,7 +13,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`https://localhost:5000/users?email=${email}`);
+      const response = await axios.get(`https://67e4f72918194932a583e028.mockapi.io/shoppinglistapi/vi/users?email=${email}`);
       const user = response.data[0];
 
       if (user && await bcrypt.compare(password, user.password)) {

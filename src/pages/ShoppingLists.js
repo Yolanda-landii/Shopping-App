@@ -13,7 +13,7 @@ const ShoppingListPage = () => {
     if (window.confirm('Are you sure you want to delete this list?')) {
       setLoading(true);
       try {
-        await axios.delete(`https://localhost:5000/shoppingLists/${id}`);
+        await axios.delete(`https://67e4f72918194932a583e028.mockapi.io/shoppinglistapi/vi/shoppingLists/${id}`);
         dispatch(deleteList(id));
       } catch (error) {
         console.error('Failed to delete list', error);
@@ -27,7 +27,7 @@ const ShoppingListPage = () => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       setLoading(true);
       try {
-        await axios.delete(`https://localhost:5000/shoppingLists/${listId}/items/${itemId}`);
+        await axios.delete(`https://67e4f72918194932a583e028.mockapi.io/shoppinglistapi/vi/shoppingLists/${listId}/items/${itemId}`);
         dispatch(deleteItem({ listId, itemId }));
       } catch (error) {
         console.error('Failed to delete item', error);
